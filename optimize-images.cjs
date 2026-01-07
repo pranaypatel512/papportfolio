@@ -9,69 +9,74 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-async function optimizeImage(inputPath, outputPath, width, height, quality = 85, format = 'webp') {
+async function optimizeImage(inputPath, outputPath, width, height, quality = 85) {
   try {
     if (!fs.existsSync(inputPath)) {
       console.log(`⚠️  Skipping ${inputPath} - file not found`);
       return;
     }
 
-    let sharpInstance = sharp(inputPath)
+    await sharp(inputPath)
       .rotate() // Auto-rotate based on EXIF orientation
       .resize(width, height, {
         fit: 'cover',
         position: 'center'
-      });
+      })
+      .webp({ quality, effort: 6 })
+      .toFile(outputPath);
 
-    if (format === 'webp') {
-      sharpInstance = sharpInstance.webp({ quality });
-    } else if (format === 'jpg' || format === 'jpeg') {
-      sharpInstance = sharpInstance.jpeg({ quality, mozjpeg: true });
+    const inputStats = fs.existsSync(inputPath) ? fs.statSync(inputPath) : null;
+    const outputStats = fs.existsSync(outputPath) ? fs.statSync(outputPath) : null;
+    
+    if (inputStats && outputStats) {
+      const savings = ((inputStats.size - outputStats.size) / inputStats.size * 100).toFixed(1);
+      console.log(`✅ Optimized: ${path.basename(inputPath)}`);
+      console.log(`   ${(inputStats.size / 1024).toFixed(1)} KB → ${(outputStats.size / 1024).toFixed(1)} KB (${savings}% reduction)`);
     }
-
-    await sharpInstance.toFile(outputPath);
-
-    const inputStats = fs.statSync(inputPath);
-    const outputStats = fs.statSync(outputPath);
-    const savings = ((inputStats.size - outputStats.size) / inputStats.size * 100).toFixed(1);
-
-    console.log(`✅ Optimized: ${path.basename(outputPath)}`);
-    console.log(`   ${(inputStats.size / 1024).toFixed(1)} KB → ${(outputStats.size / 1024).toFixed(1)} KB (${savings}% reduction)`);
   } catch (error) {
     console.error(`❌ Error optimizing ${inputPath}:`, error.message);
+  }
+}
+
+async function optimizeProfileImage(inputPath) {
+  try {
+    if (!fs.existsSync(inputPath)) {
+      console.log(`⚠️  Profile image not found at ${inputPath}`);
+      return;
+    }
+
+    console.log('📸 Optimizing profile image...\n');
+    
+    // Create WebP version (800x800 for display)
+    const photoWebp = path.join(__dirname, 'public', 'pranay-photo.webp');
+    await optimizeImage(inputPath, photoWebp, 800, 800, 90);
+
+    // Create social media optimized version (1200x630 for Open Graph/Twitter)
+    const socialPath = path.join(__dirname, 'public', 'pranay-photo-og.jpg');
+    await sharp(inputPath)
+      .rotate() // Auto-rotate based on EXIF orientation
+      .resize(1200, 630, {
+        fit: 'cover',
+        position: 'center'
+      })
+      .jpeg({ quality: 92, mozjpeg: true })
+      .toFile(socialPath);
+
+    const inputStats = fs.statSync(inputPath);
+    const socialStats = fs.statSync(socialPath);
+    console.log(`✅ Created social media version: pranay-photo-og.jpg`);
+    console.log(`   ${(inputStats.size / 1024).toFixed(1)} KB → ${(socialStats.size / 1024).toFixed(1)} KB\n`);
+  } catch (error) {
+    console.error(`❌ Error optimizing profile image:`, error.message);
   }
 }
 
 async function main() {
   console.log('🖼️  Starting image optimization...\n');
 
-  // Optimize main photo - first create optimized JPG, then WebP
+  // Optimize main photo with multiple versions
   const photoPath = path.join(__dirname, 'public', 'pranay-photo.jpg');
-  const photoWebp = path.join(__dirname, 'public', 'pranay-photo.webp');
-  
-  // Create a temporary optimized JPG, then replace original
-  const tempPhotoPath = path.join(__dirname, 'public', 'pranay-photo-optimized.jpg');
-  
-  console.log('Optimizing profile photo (JPG)...');
-  await optimizeImage(photoPath, tempPhotoPath, 1200, 1200, 90, 'jpg');
-  
-  // Replace original with optimized version if optimization was successful
-  if (fs.existsSync(tempPhotoPath)) {
-    const originalStats = fs.statSync(photoPath);
-    const optimizedStats = fs.statSync(tempPhotoPath);
-    if (optimizedStats.size < originalStats.size) {
-      fs.renameSync(tempPhotoPath, photoPath);
-      console.log('✅ Replaced original with optimized JPG\n');
-    } else {
-      fs.unlinkSync(tempPhotoPath);
-      console.log('⚠️  Original is already optimized, keeping original\n');
-    }
-  }
-  
-  // Create WebP version for better performance
-  console.log('Creating WebP version...');
-  await optimizeImage(photoPath, photoWebp, 1200, 1200, 85, 'webp');
-  console.log('');
+  await optimizeProfileImage(photoPath);
 
   // Optimize project images (displayed at 378x378)
   const projectsDir = path.join(__dirname, 'public', 'images', 'projects');
