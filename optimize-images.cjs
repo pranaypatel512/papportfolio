@@ -47,6 +47,28 @@ async function optimizeProfileImage(inputPath) {
 
     console.log('📸 Optimizing profile image...\n');
     
+    // Optimize the original JPG for web (max 1200px, good quality)
+    const originalInputStats = fs.statSync(inputPath);
+    if (originalInputStats.size > 500000) { // If larger than 500KB, optimize it
+      const optimizedJpg = path.join(__dirname, 'public', 'pranay-photo-optimized.jpg');
+      await sharp(inputPath)
+        .rotate()
+        .resize(1200, 1200, {
+          fit: 'inside',
+          withoutEnlargement: true
+        })
+        .jpeg({ quality: 85, mozjpeg: true, progressive: true })
+        .toFile(optimizedJpg);
+      
+      // Replace original with optimized version
+      fs.copyFileSync(optimizedJpg, inputPath);
+      fs.unlinkSync(optimizedJpg);
+      
+      const optimizedStats = fs.statSync(inputPath);
+      const reduction = ((originalInputStats.size - optimizedStats.size) / originalInputStats.size * 100).toFixed(1);
+      console.log(`✅ Optimized original JPG: ${(originalInputStats.size / 1024 / 1024).toFixed(2)} MB → ${(optimizedStats.size / 1024 / 1024).toFixed(2)} MB (${reduction}% reduction)`);
+    }
+    
     // Create WebP version (800x800 for display)
     const photoWebp = path.join(__dirname, 'public', 'pranay-photo.webp');
     await optimizeImage(inputPath, photoWebp, 800, 800, 90);
