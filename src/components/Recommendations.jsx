@@ -51,37 +51,40 @@ const Recommendations = () => {
       >
         <h2 className="section-title" style={{ marginBottom: '2rem' }}>People I've Worked With Say</h2>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="recommendations-grid"
-        >
-          <style>{`
-            .recommendations-grid {
-              column-count: 1;
-              column-gap: 1.5rem;
-              width: 100%;
-            }
-            @media (min-width: 640px) {
+        <>
+          <style dangerouslySetInnerHTML={{
+            __html: `
               .recommendations-grid {
-                column-count: 2;
+                column-count: 1;
+                column-gap: 1.5rem;
+                width: 100%;
               }
-            }
-            @media (min-width: 1024px) {
-              .recommendations-grid {
-                column-count: 3;
+              @media (min-width: 640px) {
+                .recommendations-grid {
+                  column-count: 2;
+                }
               }
-            }
-            .recommendations-grid > * {
-              display: inline-block;
-              width: 100%;
-              break-inside: avoid;
-              page-break-inside: avoid;
-              margin-bottom: 1.5rem;
-            }
-          `}</style>
+              @media (min-width: 1024px) {
+                .recommendations-grid {
+                  column-count: 3;
+                }
+              }
+              .recommendations-grid > * {
+                display: inline-block;
+                width: 100%;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 1.5rem;
+              }
+            `
+          }} />
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="recommendations-grid"
+          >
           {recommendations.map((rec, index) => (
             <motion.div
               key={index}
@@ -203,7 +206,8 @@ const Recommendations = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+          </motion.div>
+        </>
       </motion.div>
     </section>
   )
