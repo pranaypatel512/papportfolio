@@ -195,7 +195,17 @@ const Projects = () => {
                       lineHeight: '1.4',
                       fontWeight: 400
                     }}>
-                      {project.period || 'Mobile App'}
+                      {project.period === 'Present' ? (
+                        <span style={{
+                          background: 'linear-gradient(135deg, var(--text-primary) 0%, #6366f1 50%, var(--text-primary) 100%)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          fontWeight: 500
+                        }}>
+                          Present
+                        </span>
+                      ) : (project.period || 'Mobile App')}
                     </p>
                   </div>
                 </div>

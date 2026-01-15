@@ -1,4 +1,5 @@
 import React from 'react'
+import { Chip } from '@heroui/react'
 import { motion } from 'framer-motion'
 
 const AvailableBadge = () => {
@@ -7,44 +8,30 @@ const AvailableBadge = () => {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      style={{
-        position: 'relative',
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '0.375rem',
-        padding: '0.375rem 0.75rem',
-        borderRadius: '16px',
-        background: 'rgba(16, 185, 129, 0.15)',
-        border: '1px solid rgba(16, 185, 129, 0.4)',
-        color: '#059669',
-        fontSize: '0.75rem',
-        fontWeight: 500,
-        fontFamily: "'Inter', sans-serif",
-        overflow: 'hidden'
-      }}
+      className="relative"
     >
-      {/* Pulsing dot indicator */}
-      <motion.div
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [1, 0.6, 1]
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut'
-        }}
-        style={{
-          width: '6px',
-          height: '6px',
-          borderRadius: '50%',
-          background: '#059669',
-          flexShrink: 0,
-          position: 'relative',
-          zIndex: 1
-        }}
-      />
-      {/* Ripple effect */}
+      <Chip
+        variant="flat"
+        color="success"
+        className="relative overflow-hidden"
+        startContent={
+          <motion.div
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [1, 0.6, 1]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut'
+            }}
+            className="w-1.5 h-1.5 rounded-full bg-success flex-shrink-0 relative z-10"
+          />
+        }
+      >
+        <span className="relative z-10">Available for work</span>
+      </Chip>
+      {/* Ripple effect background */}
       <motion.div
         animate={{
           scale: [1, 2.5, 1],
@@ -55,21 +42,8 @@ const AvailableBadge = () => {
           repeat: Infinity,
           ease: 'easeOut'
         }}
-        style={{
-          position: 'absolute',
-          left: '0.625rem',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: '6px',
-          height: '6px',
-          borderRadius: '50%',
-          background: '#059669',
-          zIndex: 0
-        }}
+        className="absolute left-2.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-success z-0 pointer-events-none"
       />
-      <span style={{ position: 'relative', zIndex: 1 }}>
-        Available for work
-      </span>
     </motion.div>
   )
 }

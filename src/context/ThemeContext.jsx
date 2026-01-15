@@ -17,24 +17,32 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     setMounted(true)
     // Set default theme immediately to prevent flash
-    document.documentElement.setAttribute('data-theme', 'dark')
+    const savedTheme = localStorage.getItem('theme') || 'dark'
     
-    // Check localStorage first
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      setTheme(savedTheme)
-      document.documentElement.setAttribute('data-theme', savedTheme)
+    // Apply theme immediately
+    document.documentElement.setAttribute('data-theme', savedTheme)
+    // Sync with HeroUI/Tailwind dark mode (uses class-based)
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark')
     } else {
-      // Default to dark theme
-      setTheme('dark')
-      document.documentElement.setAttribute('data-theme', 'dark')
+      document.documentElement.classList.remove('dark')
     }
+    
+    setTheme(savedTheme)
   }, [])
 
   useEffect(() => {
     if (mounted) {
-      // Apply theme to root element
+      // Apply theme to root element for CSS variables
       document.documentElement.setAttribute('data-theme', theme)
+      
+      // Sync with HeroUI/Tailwind dark mode (uses class-based)
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+      
       localStorage.setItem('theme', theme)
     }
   }, [theme, mounted])

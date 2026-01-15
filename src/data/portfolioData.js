@@ -48,39 +48,24 @@ export const portfolioData = {
   },
   experience: [
     {
-      company: "CoorB",
-      image: "https://pranaypatel.netlify.app/images/experience/coorb.jpg",
+      company: "7Span/CoorB",
+      image: "/images/experience/7span.jpg",
       position: "Lead Software Engineer",
-      location: "Saudi Arabia · Remote",
-      startDate: "Nov 2024",
+      location: "Ahmedabad, India · Remote",
+      startDate: "Aug 2024",
       endDate: "Present",
       isCurrent: true,
       isLeadership: true,
       leadershipBadge: "Current Role - Team Leadership",
       achievements: [
-        "Leading engineering team and managing junior colleagues",
-        "Overseeing technical architecture and development strategy"
-      ],
-      teamSize: "Leading team",
-      projectsLed: 0,
-      engineersMentored: "Multiple"
-    },
-    {
-      company: "7Span",
-      image: "/images/experience/7span.jpg",
-      position: "Lead Software Engineer",
-      location: "Ahmedabad, India",
-      startDate: "Aug 2024",
-      endDate: "Present",
-      isCurrent: true,
-      isLeadership: true,
-      achievements: [
+        "Collaborated with colleagues across teams to reconstruct the core project architecture and UI SDKs, while developing Backbase-integrated SDKs to consistently deliver app functionality",
+        "Provided mentorship to junior developers by establishing frameworks for streamlined onboarding and standardized project setup",
         "Led Android development on multiple key projects, actively contributing to planning and feature implementation during development cycles",
         "Spearheaded the setup of GitHub action flows, optimizing workflow efficiency across projects",
         "Played a key role in developing a foundational project structure plugin, streamlining project initiation processes",
-        "Provided mentorship to junior developers by establishing effective onboarding frameworks and project setup guidelines, fostering team growth and efficiency"
+        "Leading engineering team and managing junior colleagues, overseeing technical architecture and development strategy"
       ],
-      teamSize: "Small team",
+      teamSize: "Leading team",
       projectsLed: 0,
       engineersMentored: "Multiple"
     },
@@ -160,7 +145,7 @@ export const portfolioData = {
       name: "NEO by The Saudi National Bank (SNB)",
       image: "/images/projects/neo.webp",
       description: "NEO is a lifestyle banking and a financial ecosystem that enables your ambitions at every step for all of life's moments. This is a digital bank that grows with you.",
-      period: "2024",
+      period: "Present",
       highlights: [
         "Led Android development for NEO banking app",
         "Implemented modern banking features and secure financial transactions",
@@ -207,7 +192,7 @@ export const portfolioData = {
     }
   ],
   leadershipMetrics: {
-    teamLeadership: "Currently leading engineering team at CoorB",
+    teamLeadership: "Currently leading engineering team at 7Span/CoorB",
     mentoringYears: "9+",
     projectsLed: "4+",
     codeQuality: "98%",
