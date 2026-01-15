@@ -147,9 +147,7 @@ const Hero = () => {
             </motion.button>
             <motion.a
               href={personal.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              download
+              download="PRANAY_PATEL_CV_2026.pdf"
               whileHover={{ opacity: 0.8, y: -2 }}
               whileTap={{ scale: 0.98 }}
               className="btn btn-secondary"
