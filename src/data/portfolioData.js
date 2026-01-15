@@ -21,7 +21,7 @@ export const portfolioData = {
       stackoverflow: "https://stackoverflow.com/users/2949612/pranay"
     }
   },
-  summary: "Experienced Software Architect and Lead Engineer with 11 years in mobile development (since 2015), specializing in Android, Kotlin, Kotlin Multiplatform and Flutter. I use AI tools daily to speed up routine work, improve code quality and focus the team on high-impact engineering. I design cross-platform solutions and build POCs and MVPs to validate product direction quickly.\n\nI lead requirement gathering, architecture and delivery for complex products, and I'm hands-on with DevOps and CI/CD to keep releases reliable and fast. With 25k+ reputation on StackOverflow and a strong interest in cybersecurity, I contribute to open-source, mentor junior engineers, and advise startups as an investor — all with the goal of building practical, secure, and scalable products while empowering the next generation of developers.",
+  summary: "• Experienced Software Architect & Lead Engineer with 11 years (since 2015) in mobile development, Android, Kotlin, Kotlin Multiplatform and Flutter, who uses AI tools daily to boost productivity and improve code quality.\n\n• Lead requirement gathering, design architecture, and build POCs/MVPs to validate product direction quickly; hands-on with DevOps and CI/CD to keep releases reliable and fast.\n\n• Run thorough code reviews and mentor junior engineers, contribute to open-source, and foster high-quality, scalable mobile products.\n\n• 25k+ reputation on StackOverflow, strong interest in cybersecurity, and active as an investor and mentor to early-stage teams.",
   skills: {
     technical: [
       "Android",
