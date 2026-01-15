@@ -4,7 +4,7 @@ import { portfolioData } from '../data/portfolioData'
 import { FaGithub, FaLinkedin, FaEnvelope, FaTwitter, FaMedium, FaStackOverflow, FaGlobe } from 'react-icons/fa'
 
 const Contact = () => {
-  const { personal } = portfolioData
+  const { personal, summary } = portfolioData
   const { social } = personal
 
   const socialLinks = [
@@ -121,12 +121,12 @@ const Contact = () => {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              {Array.isArray(personal.tagline) ? (
-                personal.tagline.map((paragraph, idx) => (
-                  <p key={idx} style={{
+              {summary ? (
+                summary.split('\n\n').map((paragraph, index) => (
+                  <p key={index} style={{
                     fontSize: 'clamp(1rem, 2vw, 1.125rem)',
                     color: 'var(--text-secondary)',
-                    marginBottom: '1rem',
+                    marginBottom: index < summary.split('\n\n').length - 1 ? '1.5rem' : '0',
                     lineHeight: '1.7',
                     fontWeight: 400
                   }}>
@@ -134,14 +134,28 @@ const Contact = () => {
                   </p>
                 ))
               ) : (
-                <p style={{
-                  fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-                  color: 'var(--text-secondary)',
-                  lineHeight: '1.7',
-                  fontWeight: 400
-                }}>
-                  {personal.tagline}
-                </p>
+                Array.isArray(personal.tagline) ? (
+                  personal.tagline.map((paragraph, idx) => (
+                    <p key={idx} style={{
+                      fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+                      color: 'var(--text-secondary)',
+                      marginBottom: '1rem',
+                      lineHeight: '1.7',
+                      fontWeight: 400
+                    }}>
+                      {paragraph}
+                    </p>
+                  ))
+                ) : (
+                  <p style={{
+                    fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+                    color: 'var(--text-secondary)',
+                    lineHeight: '1.7',
+                    fontWeight: 400
+                  }}>
+                    {personal.tagline}
+                  </p>
+                )
               )}
             </motion.div>
 

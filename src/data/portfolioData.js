@@ -11,7 +11,7 @@ export const portfolioData = {
     phone: "+917990139255",
     location: "Ahmedabad, India",
     website: "https://www.booleancoder.com/",
-    resume: "/PranayPatel_SSE_2025.pdf",
+    resume: "/PRANAY_PATEL_CV_2026.pdf",
     photo: "/pranay-photo.jpg", // Add your photo to the public folder
     social: {
       github: "https://github.com/pranaypatel512",
@@ -21,7 +21,7 @@ export const portfolioData = {
       stackoverflow: "https://stackoverflow.com/users/2949612/pranay"
     }
   },
-  summary: "Experienced Senior Software Engineer with over 9 years in mobile development, specializing in Android, Kotlin, and Flutter. Proficient in leveraging AI tools to enhance coding efficiency and drive innovation in app development. Passionate about leading complex projects, contributing to open-source communities, and mentoring junior engineers to foster team growth and deliver high-quality mobile apps. My expertise includes hands-on development in Kotlin Multiplatform and Flutter.",
+  summary: "Experienced Software Architect and Lead Engineer with 11 years in mobile development (since 2015), specializing in Android, Kotlin, Kotlin Multiplatform and Flutter. I use AI tools daily to speed up routine work, improve code quality and focus the team on high-impact engineering. I design cross-platform solutions and build POCs and MVPs to validate product direction quickly.\n\nI lead requirement gathering, architecture and delivery for complex products, and I'm hands-on with DevOps and CI/CD to keep releases reliable and fast. With 25k+ reputation on StackOverflow and a strong interest in cybersecurity, I contribute to open-source, mentor junior engineers, and advise startups as an investor — all with the goal of building practical, secure, and scalable products while empowering the next generation of developers.",
   skills: {
     technical: [
       "Android",

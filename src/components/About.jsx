@@ -103,7 +103,11 @@ const About = () => {
               fontWeight: 400
             }}
           >
-            <p>{summary}</p>
+            {summary.split('\n\n').map((paragraph, index) => (
+              <p key={index} style={{ marginBottom: index < summary.split('\n\n').length - 1 ? '1.5rem' : '0' }}>
+                {paragraph}
+              </p>
+            ))}
           </motion.div>
         </div>
       </motion.div>
