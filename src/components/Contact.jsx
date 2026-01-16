@@ -65,7 +65,7 @@ const Contact = () => {
             }}>
               <picture>
                 <source
-                  srcSet={`${personal.photo?.replace('.jpg', '.webp') || '/pranay-photo.webp'} 1x, ${personal.photo?.replace('.jpg', '@2x.webp') || '/pranay-photo@2x.webp'} 2x`}
+                  srcSet={personal.photo?.replace(/\.(jpg|jpeg|png)$/i, '.webp') || '/pranay-photo.webp'}
                   type="image/webp"
                 />
                 <img
@@ -80,22 +80,31 @@ const Contact = () => {
                     display: 'block'
                   }}
                   onError={(e) => {
-                    // Fallback if image doesn't exist
-                    e.target.style.display = 'none'
-                    e.target.parentElement.innerHTML = `
-                      <div style="
-                        width: 100%;
-                        height: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        background: var(--bg-secondary);
-                        color: var(--text-muted);
-                        font-size: 1.5rem;
-                      ">
-                        📷
-                      </div>
-                    `
+                    // Try fallback to WebP if original fails, or show placeholder
+                    const originalSrc = e.target.src
+                    if (!originalSrc.endsWith('.webp')) {
+                      const webpSrc = originalSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp')
+                      e.target.src = webpSrc
+                    } else {
+                      e.target.style.display = 'none'
+                      const container = e.target.closest('div')
+                      if (container) {
+                        container.innerHTML = `
+                          <div style="
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: var(--bg-secondary);
+                            color: var(--text-muted);
+                            font-size: 1.5rem;
+                          ">
+                            📷
+                          </div>
+                        `
+                      }
+                    }
                   }}
                 />
               </picture>

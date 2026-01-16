@@ -109,10 +109,12 @@ const Projects = () => {
                     </motion.div>
                     {project.image ? (
                       <picture>
-                        <source
-                          srcSet={`${project.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')} 1x, ${project.image.replace(/\.(jpg|jpeg|png)$/i, '@2x.webp')} 2x`}
-                          type="image/webp"
-                        />
+                        {!project.image.endsWith('.webp') && (
+                          <source
+                            srcSet={project.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')}
+                            type="image/webp"
+                          />
+                        )}
                         <img
                           src={project.image}
                           alt={project.name}
@@ -137,21 +139,31 @@ const Projects = () => {
                             e.target.style.filter = theme === 'light' ? 'grayscale(30%) brightness(0.85)' : 'grayscale(20%) brightness(0.9)'
                           }}
                           onError={(e) => {
-                            e.target.style.display = 'none'
-                            e.target.parentElement.innerHTML = `
-                              <div style="
-                                width: 100%;
-                                height: 100%;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                background: var(--bg-secondary);
-                                color: var(--text-muted);
-                                font-size: 1.5rem;
-                              ">
-                                📱
-                              </div>
-                            `
+                            // Try fallback to WebP if original fails, or show placeholder
+                            const originalSrc = e.target.src
+                            if (!originalSrc.endsWith('.webp')) {
+                              const webpSrc = originalSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp')
+                              e.target.src = webpSrc
+                            } else {
+                              e.target.style.display = 'none'
+                              const container = e.target.closest('div')
+                              if (container) {
+                                container.innerHTML = `
+                                  <div style="
+                                    width: 100%;
+                                    height: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    background: var(--bg-secondary);
+                                    color: var(--text-muted);
+                                    font-size: 1.5rem;
+                                  ">
+                                    📱
+                                  </div>
+                                `
+                              }
+                            }
                           }}
                         />
                       </picture>

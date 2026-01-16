@@ -29,9 +29,9 @@ async function optimizeImage(inputPath, outputPath, width, height, quality = 85)
     const outputStats = fs.existsSync(outputPath) ? fs.statSync(outputPath) : null;
     
     if (inputStats && outputStats) {
-      const savings = ((inputStats.size - outputStats.size) / inputStats.size * 100).toFixed(1);
-      console.log(`✅ Optimized: ${path.basename(inputPath)}`);
-      console.log(`   ${(inputStats.size / 1024).toFixed(1)} KB → ${(outputStats.size / 1024).toFixed(1)} KB (${savings}% reduction)`);
+    const savings = ((inputStats.size - outputStats.size) / inputStats.size * 100).toFixed(1);
+    console.log(`✅ Optimized: ${path.basename(inputPath)}`);
+    console.log(`   ${(inputStats.size / 1024).toFixed(1)} KB → ${(outputStats.size / 1024).toFixed(1)} KB (${savings}% reduction)`);
     }
   } catch (error) {
     console.error(`❌ Error optimizing ${inputPath}:`, error.message);
