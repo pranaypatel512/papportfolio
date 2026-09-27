@@ -40,6 +40,12 @@
   /* Active navigation color - different for light theme */
   --active-nav-bg: rgb(82, 168, 255);
   --active-nav-shadow: 0 2px 8px rgba(82, 168, 255, 0.25);
+
+  /* Glassmorphism — for sections layered over the 3D canvas */
+  --canvas-overlay: rgba(250, 250, 255, 0.72);
+  --card-bg-glass: rgba(255, 255, 255, 0.68);
+  --card-blur: blur(24px);
+  --section-bg-glass: rgba(255, 255, 255, 0.6);
 }
 
 /* Dark Theme - Minimal jaberelferkh.com inspired */
@@ -84,4 +90,10 @@
   /* Active navigation color - different for dark theme */
   --active-nav-bg: rgb(82, 168, 255);
   --active-nav-shadow: 0 2px 8px rgba(82, 168, 255, 0.4);
+
+  /* Glassmorphism — for sections layered over the 3D canvas */
+  --canvas-overlay: rgba(5, 5, 16, 0.55);
+  --card-bg-glass: rgba(10, 10, 28, 0.62);
+  --card-blur: blur(24px);
+  --section-bg-glass: rgba(5, 5, 16, 0.5);
 }

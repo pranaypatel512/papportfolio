@@ -40,7 +40,7 @@ const BottomNav = () => {
 
       // Debounce the scroll handler
       scrollTimeout = setTimeout(() => {
-        const sections = ['hero', 'experience', 'projects', 'recommendations', 'toolkit-talks', 'opensource', 'contact']
+        const sections = ['hero', 'about-stats', 'experience', 'projects', 'skills', 'recommendations', 'toolkit-talks', 'opensource', 'contact']
         const scrollY = window.scrollY
         const windowHeight = window.innerHeight
         const viewportCenter = scrollY + windowHeight / 2
@@ -92,8 +92,10 @@ const BottomNav = () => {
   }, [])
 
   const navItems = [
+    { name: 'About', href: '#about-stats', id: 'about-stats' },
     { name: 'Experience', href: '#experience', id: 'experience' },
     { name: 'Work', href: '#projects', id: 'projects' },
+    { name: 'Skills', href: '#skills', id: 'skills' },
     { name: 'Recommendations', href: '#recommendations', id: 'recommendations' },
     { name: 'Tools', href: '#toolkit-talks', id: 'toolkit-talks' },
     { name: 'Open Source', href: '#opensource', id: 'opensource' },

@@ -21,12 +21,21 @@ html {
 }
 
 body {
-  background-color: var(--bg-primary);
+  background-color: #050510; /* fallback if canvas not loaded */
   color: var(--text-primary);
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: color 0.4s ease;
   line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
+}
+
+/* Reduced motion: disable Three.js canvas animations via CSS hint */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 #root {
@@ -402,4 +411,53 @@ section {
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   GLASSMORPHISM — sections over 3D canvas
+═══════════════════════════════════════ */
+
+/* Section wrappers become glass */
+#experience,
+#projects,
+#recommendations,
+#toolkit-talks,
+#opensource,
+#contact {
+  background: var(--section-bg-glass, rgba(5, 5, 16, 0.5)) !important;
+  backdrop-filter: var(--card-blur, blur(24px));
+  -webkit-backdrop-filter: var(--card-blur, blur(24px));
+  border-top: 1px solid rgba(99, 102, 241, 0.08);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+}
+
+/* Cards use glass too */
+.card,
+[data-theme="dark"] .card,
+[data-theme="light"] .card {
+  background: var(--card-bg-glass) !important;
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
+}
+
+/* Experience and recommendation inner cards */
+#experience .card,
+#recommendations .card {
+  border: 1px solid rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Hero section — stays transparent so desk is fully visible */
+#hero {
+  background: transparent !important;
+}
+
+/* Bottom nav glass */
+.bottom-nav {
+  background: rgba(5, 5, 20, 0.5) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+[data-theme="light"] .bottom-nav {
+  background: rgba(255, 255, 255, 0.6) !important;
 }
